@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         dataSet.barBorderWidth = 0
         dataSet.valueFont = UIFont(name: "Rockwell", size: 9)!
         dataSet.colors = [NSUIColor(cgColor: blueColor.cgColor)]
+        
         chartData.addDataSet(dataSet)
 
         barChartView.delegate = self
@@ -62,11 +63,14 @@ class ViewController: UIViewController {
         //barChartView.xAxis.setLabelCount(7, force: false)
         //barChartView.xAxis.axisRange = 7.0
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         barChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        barChartView.highlightValue(x: 0, dataSetIndex: 0)
     }
 }
 
@@ -82,9 +86,8 @@ extension UIColor {
 }
 
 extension ViewController: ChartViewDelegate {
-    public func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight)
-    {
-        print("chartValueSelected : x = \(highlight.x)")
+    public func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight){
+        print("chartValueSelected: x = \(highlight.x)")
         print(entry.data ?? "")
     }
     
